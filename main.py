@@ -43,16 +43,11 @@ def abecedaryList(playFairKey):
     for character in abcList:
         if character not in keyCodeList: #Si el caracter está en abcList pero no en keyCodeList
             differencesList.append(character) #introduce el caracter en differencesList
-    #Vamos a contemplar el caso de I/J
-    #for i in range(len(keyCodeList)): #Recorremos toda la lista de la clave
-    #    if keyCodeList[i] == "I" or keyCodeList == "J": #Si la clave tiene una I o una J
-    #        differencesList.remove("IJ") #Entonces borramos de differencesList el elemento "IJ"
     finalCodeList = keyCodeList + differencesList #En una nueva lista juntamos las diferencias.
     if len(finalCodeList) != 25: #Interrumpe el flujo del programa si la longitud de la lista es distinta de 25
         print("ERROR! CARACTERES INSUFICIENTES, CONTACTE  A UN ADMINISTRADOR")
         sys.exit()
     codificationMatrix(finalCodeList) #Invocamos al metodo para generar la matriz
-    return 0
 
 #Funcion para generar y llenar la amtriz con el abecedario generado, con base en la clave dada por el usuario
 def codificationMatrix(finalCodeList): 
@@ -62,7 +57,23 @@ def codificationMatrix(finalCodeList):
         for j in range(5):
             codeMatrix[i,j] = finalCodeList[j+abcPointer]
         abcPointer += 5 #Sumamos 5 despues de cada llenado de fila para recorrer el puntero inicial
-    print(codeMatrix)
+    print(codeMatrix) #Observamos como luce la matriz
+    return codeMatrix
+
+#Funcion que tendrá las reglas y el procedimiento para cifrar
+def playFairCipher(cipherMatrix, uncodedMessage):
+    #Utilizamos el mensaje limpio y la matriz recien generada como argumentos
+    print("uncoded: ", uncodedMessage)
+    uncodedMessage = list(uncodedMessage) #Separamos caracter a caracter el mensaje en una lista.
+    if len(uncodedMessage)%2 != 0: #Si la longitud es impar, agregamos una "X" para poder iterar en par de caracteres.
+        uncodedMessage.append("X")
+    print("Mensaje: ", uncodedMessage)
+    codedMessage = [] #Variable donde guardaremos el mensaje codificado
+    #Falta realizar comparación entre matrices
+
+
+
+
 
 #Zona de pruebas, campo minado
 print("----C I F R A D O    P L A Y F A I R----")
@@ -74,4 +85,6 @@ print("Su mensaje limpio: ", uncodedMessage)
 playFairKey = input("Introduzca la clave para cifrar: ")
 playFairKey = cleanCodificationCode(playFairKey)
 print("Su clave: ", playFairKey)
-abecedaryList(playFairKey)
+cipherMatrix = abecedaryList(playFairKey) #Funcion para obtener la matriz cifrada
+playFairCipher(cipherMatrix, uncodedMessage) #Funcion para realizar el cifrado
+
